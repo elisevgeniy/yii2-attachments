@@ -59,21 +59,103 @@ class AttachmentsManager extends Widget
         //delete button
         $confirm = Yii::t('yii', 'Are you sure you want to delete this item?');
         $js = <<<JS
-        $(".delete-button").click(function(){
-            var tr = this.closest('tr');
-            var url = $(this).data('url');
+
+        var directsend = function(url, data, method) {
+            if (method == null) method = 'POST';
+            if (data == null) data = {};
+
+            var form = $('<form>').attr({
+                method: method,
+                action: url
+            }).css({
+                display: 'none'
+            });
+
+            var addData = function(name, data) {
+                if ($.isArray(data)) {
+                    for (var i = 0; i < data.length; i++) {
+                        var value = data[i];
+                        addData(name + '[]', value);
+                    }
+                } else if (typeof data === 'object') {
+                    for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            addData(name + '[' + key + ']', data[key]);
+                        }
+                    }
+                } else if (data != null) {
+                    form.append($('<input>').attr({
+                    type: 'hidden',
+                    name: String(name),
+                    value: String(data)
+                    }));
+                }
+            };
+
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    addData(key, data[key]);
+                }
+            }
+
+            return form.appendTo('body');
+        }
+
+
+        $(".delete-multiple-button").click(function(e){
+            e.preventDefault();
+            var items = [];
+            var url = $(this).attr('href');
+            var postdata = [];
+            $('.file-manager-content-body').find('input:checkbox:checked').each(function(){
+                postdata.push($(this).data("id"));
+                items.push($(this).closest('.file-manager-item'));
+            });
+
+            if (confirm("$confirm")) {
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: {ids: postdata},
+                    success: function(data) {
+                        if (data) {
+                            $.each( items, function( index, item ){
+                                $(item).fadeOut('slow', function() { $(this).remove('slow'); });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".delete-button").click(function(e){
+            e.preventDefault();
+            var item = this.closest('.file-manager-item');
+            var url = $(this).attr('href');
             if (confirm("$confirm")) {
                 $.ajax({
                     method: "POST",
                     url: url,
                     success: function(data) {
                         if (data) {
-                            tr.remove();
+                            $(item).fadeOut('slow', function() { $(this).remove('slow'); });
                         }
                     }
                 });
             }
         });
+
+        $(".download-multiple-button").click(function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var postdata = [];
+            $('.file-manager-content-body').find('input:checkbox:checked').each(function(){
+                postdata.push($(this).data("id"));
+            });
+
+            directsend(url, {ids: postdata}, 'POST').submit();
+        });
+
 JS;
         $view->registerJs($js);
 
@@ -81,6 +163,7 @@ JS;
             'model' => $this->model,
             'editorMode' => $this->editorMode,
             'listView' => $this->listView,
+            'searchLabel' => $this->getModule()->t('attachments', 'Search'),
         ]);
     }
 }

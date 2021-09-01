@@ -38,7 +38,7 @@ class Module extends \yii\base\Module
         \Yii::$app->i18n->translations['nemmo/*'] = [
             'class' => PhpMessageSource::className(),
             'sourceLanguage' => 'en',
-            'basePath' => '@vendor/nemmo/yii2-attachments/src/messages',
+            'basePath' => '@vendor/smateu/yii2-attachments/src/messages',
             'fileMap' => [
                 'nemmo/attachments' => 'attachments.php'
             ],
@@ -157,9 +157,9 @@ class Module extends \yii\base\Module
         $file = File::findOne(['id' => $id]);
         if (empty($file)) return false;
         $filePath = $this->getFilesDirPath($file->hash) . DIRECTORY_SEPARATOR . $file->hash . '.' . $file->type;
-        
+
         // this is the important part of the override.
-        // the original methods doesn't check for file_exists to be 
+        // the original methods doesn't check for file_exists to be
         return file_exists($filePath) ? unlink($filePath) && $file->delete() : $file->delete();
     }
 }

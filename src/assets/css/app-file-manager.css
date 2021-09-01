@@ -2,14 +2,10 @@
     border : 1px solid #EBE9F1;
     border-radius : 0.25rem;
     height:100% !important;
-  }
-
-  .file-manager-application .content-area-wrapper .content-right .content-wrapper {
-    padding : 0;
+    display: block !important;
   }
 
   .file-manager-application .content-area-wrapper .file-manager-main-content {
-    border-left : 1px solid #EBE9F1;
     height : inherit;
   }
 
@@ -70,7 +66,9 @@
   .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .hide-editor-mode .dropdown {
     opacity : 0 !important;
   }
-
+  .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .file-manager-item .dropdown {
+    cursor: pointer;
+  }
 
   .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .file-manager-item .file-logo-wrapper {
     padding : 1rem;
@@ -84,6 +82,7 @@
 
   .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .file-manager-item .dropdown-menu {
     transform : none;
+    left: -93px;
   }
 
   .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .file-manager-item .dropdown-menu:before {

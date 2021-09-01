@@ -9,9 +9,7 @@ $(function () {
   var sidebarFileManager = $('.sidebar-file-manager'),
     sidebarToggler = $('.sidebar-toggle'),
     fileManagerOverlay = $('.body-content-overlay'),
-    filesTreeView = $('.my-drive'),
     sidebarRight = $('.right-sidebar'),
-    filesWrapper = $('.file-manager-main-content'),
     viewContainer = $('.view-container'),
     fileManagerItem = $('.file-manager-item'),
     noResult = $('.no-result'),
@@ -20,10 +18,10 @@ $(function () {
     filterInput = $('.files-filter'),
     toggleDropdown = $('.toggle-dropdown'),
     sidebarMenuList = $('.sidebar-list'),
-    fileDropdown = $('.file-dropdown'),
     fileContentBody = $('.file-manager-content-body');
 
   // Select File
+  fileContentBody.find('.custom-control-input').prop('checked', false);
   if (fileManagerItem.length) {
     fileManagerItem.find('.custom-control-input').on('change', function () {
       var $this = $(this);
@@ -96,46 +94,6 @@ $(function () {
     });
   }
 
-  // Files Treeview
-  if (filesTreeView.length) {
-    filesTreeView.jstree({
-      core: {
-        themes: {
-          dots: false
-        },
-        data: [
-          {
-            text: 'My Drive',
-            children: [
-              {
-                text: 'photos',
-                children: [
-                  {
-                    text: 'image-1.jpg',
-                    type: 'jpg'
-                  },
-                  {
-                    text: 'image-2.jpg',
-                    type: 'jpg'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      plugins: ['types'],
-      types: {
-        default: {
-          icon: 'far fa-folder font-medium-1'
-        },
-        jpg: {
-          icon: 'far fa-file-image text-info font-medium-1'
-        }
-      }
-    });
-  }
-
   // click event for show sidebar
   sidebarToggler.on('click', function () {
     sidebarFileManager.toggleClass('show');
@@ -147,17 +105,6 @@ $(function () {
     sidebarFileManager.removeClass('show');
     fileManagerOverlay.removeClass('show');
     sidebarRight.removeClass('show');
-  });
-
-  // on screen Resize remove .show from overlay and sidebar
-  $(window).on('resize', function () {
-    if ($(window).width() > 768) {
-      if (fileManagerOverlay.hasClass('show')) {
-        sidebarFileManager.removeClass('show');
-        fileManagerOverlay.removeClass('show');
-        sidebarRight.removeClass('show');
-      }
-    }
   });
 
   // making active to list item in links on click
@@ -172,30 +119,30 @@ $(function () {
   if (toggleDropdown.length) {
     $('.file-logo-wrapper .dropdown').on('click', function (e) {
       var $this = $(this);
-      e.preventDefault();
+      //e.preventDefault();
+      var fileDropdown = $('.file-dropdown', $this);
       if (fileDropdown.length) {
-        $('.view-container').find('.file-dropdown').remove();
-        if ($this.closest('.dropdown').find('.dropdown-menu').length === 0) {
-          fileDropdown
-            .clone()
-            .appendTo($this.closest('.dropdown'))
-            .addClass('show')
-            .find('.dropdown-item')
-            .on('click', function () {
-              $(this).closest('.dropdown-menu').remove();
-            });
-        }
-      }
-    });
-    $(document).on('click', function (e) {
-      if (!$(e.target).hasClass('toggle-dropdown')) {
-        filesWrapper.find('.file-dropdown').remove();
+        $('.view-container').find('.file-dropdown').hide();
+        //console.log($this.find('.dropdown-menu').show());
+
+        $this.find('.dropdown-menu')
+          .show()
+          .find('.dropdown-item')
+          .on('click', function () {
+            $(this).closest('.dropdown-menu').hide();
+        });
       }
     });
 
+    // $(document).on('click', function (e) {
+    //   if (!$(e.target).hasClass('toggle-dropdown')) {
+    //     filesWrapper.find('.file-dropdown').hide();
+    //   }
+    // });
+
     if (viewContainer.length) {
       $('.file, .folder').on('mouseleave', function () {
-        $(this).find('.file-dropdown').remove();
+        $(this).find('.file-dropdown').hide();
       });
     }
   }

@@ -15,6 +15,17 @@ class FileController extends Controller
 {
     use ModuleTrait;
 
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'download-multiple') {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
     public function actionUpload()
     {
         $model = new UploadForm();
@@ -55,6 +66,34 @@ class FileController extends Controller
         return Yii::$app->response->sendFile($filePath, "$file->name.$file->type");
     }
 
+
+    public function actionDownloadMultiple()
+    {
+        $ids = Yii::$app->request->post('ids', []);
+        if (is_array($ids)) {
+
+            if (count($ids) == 1) {
+                return $this->actionDownload($ids[0]);
+            }
+
+            $zip = new \ZipArchive();
+            $temp_file = tempnam(sys_get_temp_dir(), 'zipped');
+            if ($zip->open($temp_file, \ZipArchive::CREATE) !== TRUE) {
+                throw new \Exception('Cannot create a zip file');
+            }
+
+            foreach ($ids as $id) {
+                $file = File::findOne(['id' => $id]);
+                $filePath = $this->getModule()->getFilesDirPath($file->hash) . DIRECTORY_SEPARATOR . $file->hash . '.' . $file->type;
+                $zip->addFile($filePath, "$file->name.$file->type");
+            }
+            $zip->close();
+
+            return Yii::$app->response->sendFile($temp_file, "files.zip");
+        }
+        return false;
+    }
+
     public function actionDelete($id)
     {
         if ($this->getModule()->detachFile($id)) {
@@ -62,6 +101,18 @@ class FileController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function actionDeleteMultiple()
+    {
+        $ids = Yii::$app->request->post('ids', []);
+        if (is_array($ids)) {
+            foreach ($ids as $id) {
+                $this->getModule()->detachFile($id);
+            }
+            return true;
+        }
+        return false;
     }
 
     public function actionDownloadTemp($filename)
