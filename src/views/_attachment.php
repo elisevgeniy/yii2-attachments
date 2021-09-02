@@ -15,8 +15,10 @@ $classHideEditorMode = !$editorMode? ' hide-editor-mode' : '';
 
 <div class="card file-manager-item file <?=$classHideEditorMode?>">
     <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="customCheck<?=$key?>" data-id="<?=$model->id?>" />
-        <label class="custom-control-label" for="customCheck<?=$key?>"></label>
+        <label>
+            <input type="checkbox" class="custom-control-input" id="customCheck<?=$key?>" data-id="<?=$model->id?>" />
+            <span class="custom-control-label" for="customCheck<?=$key?>"></span>
+        </label>
     </div>
     <div class="card-img-top file-logo-wrapper">
         <div class="dropdown float-right">
