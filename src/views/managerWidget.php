@@ -10,6 +10,8 @@ use nemmo\attachments\components\AttachmentsInput;
 /** @var boolean $editorMode */
 /** @var boolean $listView */
 /** @var string $searchLabel */
+/** @var string $downloadLabel */
+/** @var string $deleteLabel */
 
 ?>
 <div class="file-manager-application">
@@ -20,9 +22,6 @@ use nemmo\attachments\components\AttachmentsInput;
                 <!-- search area start -->
                 <div class="file-manager-content-header d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <div class="sidebar-toggle d-block d-xl-none float-left align-middle ml-1">
-                            <i data-feather="menu" class="font-medium-5"></i>
-                        </div>
                         <div class="input-group input-group-merge shadow-none m-0 flex-grow-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text border-0">
@@ -34,8 +33,21 @@ use nemmo\attachments\components\AttachmentsInput;
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="file-actions">
-                            <a href="<?=Url::to(['/attachments/file/download-multiple'])?>" class="font-medium-2 d-sm-inline-block d-none mr-50 download-multiple-button"><i data-feather="arrow-down-circle"></i></a>
-                            <a href="<?=Url::to(['/attachments/file/delete-multiple'])?>" class="font-medium-2 d-sm-inline-block d-none mr-50 delete-multiple-button"><i data-feather="trash"></i></a>
+                            <a href="<?=Url::to(['/attachments/file/download-multiple'])?>" class="font-medium-2 d-sm-inline-block d-none mr-50 download-multiple-button" title="<?=$downloadLabel?>"><i data-feather="download"></i></a>
+                            <a href="<?=Url::to(['/attachments/file/delete-multiple'])?>" class="font-medium-2 d-sm-inline-block d-none mr-50 delete-multiple-button" title="<?=$deleteLabel?>"><i data-feather="trash"></i></a>
+                            <div class="dropdown d-inline-block d-sm-none">
+                                <i class="font-medium-2 cursor-pointer" data-feather="more-vertical" role="button" id="fileActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="fileActions">
+                                    <a class="dropdown-item download-multiple-button" href="<?=Url::to(['/attachments/file/download-multiple'])?>">
+                                        <i data-feather="download" class="mr-50"></i>
+                                        <span class="align-middle"><?=$downloadLabel?></span>
+                                    </a>
+                                    <a class="dropdown-item delete-multiple-button" href="<?=Url::to(['/attachments/file/delete-multiple'])?>">
+                                        <i data-feather="trash" class="mr-50"></i>
+                                        <span class="align-middle"><?=$deleteLabel?></span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="btn-group btn-group-toggle view-toggle ml-50" data-toggle="buttons">
                             <label class="btn btn-outline-primary p-50 btn-sm active">
@@ -51,7 +63,7 @@ use nemmo\attachments\components\AttachmentsInput;
                 </div>
                 <!-- search area ends here -->
 
-                <div class="file-manager-content-body ps">
+                <div class="file-manager-content-body">
                     <?= ListView::widget([
                         'layout' => "{items}",
                         'itemOptions' => ['tag' => false],

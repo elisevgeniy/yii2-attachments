@@ -7,4 +7,6 @@ return [
     'The behavior FileBehavior has not been attached to the model.' => 'El componente FileBehavior no está vinculado al modelo.',
     'File name' => 'Nombre del fichero',
     'Search' => 'Buscar',
+    'Download' => 'Descargar',
+    'Delete' => 'Eliminar',
 ];

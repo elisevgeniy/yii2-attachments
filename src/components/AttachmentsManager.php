@@ -164,6 +164,8 @@ JS;
             'editorMode' => $this->editorMode,
             'listView' => $this->listView,
             'searchLabel' => $this->getModule()->t('attachments', 'Search'),
+            'downloadLabel' => $this->getModule()->t('attachments', 'Download'),
+            'deleteLabel' => $this->getModule()->t('attachments', 'Delete'),
         ]);
     }
 }

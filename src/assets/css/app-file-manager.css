@@ -50,7 +50,7 @@
   }
 
   .file-manager-application .content-area-wrapper .file-manager-main-content .file-manager-content-body .view-container .file-manager-item .card-body {
-    padding : 1rem;
+    padding : 1rem 1.6rem 1rem 1rem;
     padding-bottom : 0.5rem;
     cursor: pointer;
   }

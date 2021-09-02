@@ -80,19 +80,19 @@ $(function () {
     });
   }
 
-  // sidebar file manager list scrollbar
-  if ($(sidebarMenuList).length > 0) {
-    var sidebarLeftList = new PerfectScrollbar(sidebarMenuList[0], {
-      suppressScrollX: true
-    });
-  }
+  // // sidebar file manager list scrollbar
+  // if ($(sidebarMenuList).length > 0) {
+  //   var sidebarLeftList = new PerfectScrollbar(sidebarMenuList[0], {
+  //     suppressScrollX: true
+  //   });
+  // }
 
-  if ($(fileContentBody).length > 0) {
-    var rightContentWrapper = new PerfectScrollbar(fileContentBody[0], {
-      cancelable: true,
-      wheelPropagation: false
-    });
-  }
+  // if ($(fileContentBody).length > 0) {
+  //   var rightContentWrapper = new PerfectScrollbar(fileContentBody[0], {
+  //     cancelable: true,
+  //     wheelPropagation: false
+  //   });
+  // }
 
   // click event for show sidebar
   sidebarToggler.on('click', function () {
