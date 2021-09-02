@@ -52,12 +52,12 @@ use yii\helpers\ArrayHelper;
                             </div>
                         </div>
                         <div class="btn-group btn-group-toggle view-toggle ml-50" data-toggle="buttons">
-                            <label class="btn btn-outline-primary p-50 btn-sm active">
-                                <input type="radio" name="view-btn-radio" data-view="grid" checked />
+                            <label class="btn btn-outline-primary p-50 btn-sm <?=$listView? '' : 'active'?>">
+                                <input type="radio" name="view-btn-radio" data-view="grid" <?=$listView? '' : 'checked'?> />
                                 <i data-feather="grid"></i>
                             </label>
-                            <label class="btn btn-outline-primary p-50 btn-sm">
-                                <input type="radio" name="view-btn-radio" data-view="list" />
+                            <label class="btn btn-outline-primary p-50 btn-sm <?=!$listView? '' : 'active'?>">
+                                <input type="radio" name="view-btn-radio" data-view="list" <?=!$listView? '' : 'checked'?> />
                                 <i data-feather="list"></i>
                             </label>
                         </div>
