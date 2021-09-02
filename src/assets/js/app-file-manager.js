@@ -80,20 +80,6 @@ $(function () {
     });
   }
 
-  // // sidebar file manager list scrollbar
-  // if ($(sidebarMenuList).length > 0) {
-  //   var sidebarLeftList = new PerfectScrollbar(sidebarMenuList[0], {
-  //     suppressScrollX: true
-  //   });
-  // }
-
-  // if ($(fileContentBody).length > 0) {
-  //   var rightContentWrapper = new PerfectScrollbar(fileContentBody[0], {
-  //     cancelable: true,
-  //     wheelPropagation: false
-  //   });
-  // }
-
   // click event for show sidebar
   sidebarToggler.on('click', function () {
     sidebarFileManager.toggleClass('show');
@@ -123,7 +109,6 @@ $(function () {
       var fileDropdown = $('.file-dropdown', $this);
       if (fileDropdown.length) {
         $('.view-container').find('.file-dropdown').hide();
-        //console.log($this.find('.dropdown-menu').show());
 
         $this.find('.dropdown-menu')
           .show()
@@ -133,12 +118,6 @@ $(function () {
         });
       }
     });
-
-    // $(document).on('click', function (e) {
-    //   if (!$(e.target).hasClass('toggle-dropdown')) {
-    //     filesWrapper.find('.file-dropdown').hide();
-    //   }
-    // });
 
     if (viewContainer.length) {
       $('.file, .folder').on('mouseleave', function () {
