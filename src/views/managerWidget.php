@@ -4,8 +4,10 @@ use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\data\ArrayDataProvider;
 use nemmo\attachments\components\AttachmentsInput;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
+/** @var nemmo\attachments\Module $module */
 /** @var yii\db\ActiveRecord $model */
 /** @var boolean $editorMode */
 /** @var boolean $listView */
@@ -77,34 +79,37 @@ use nemmo\attachments\components\AttachmentsInput;
         </div>
     </div>
 </div>
-
-<?= AttachmentsInput::widget([
-    'id' => 'file-input', // Optional
-    'model' => $model,
-    'options' => [ // Options of the Kartik's FileInput widget
-        'multiple' => true, // If you want to allow multiple upload, default to false
-    ],
-    'pluginOptions' => [ // Plugin options of the Kartik's FileInput widget
-        'initialPreview' => false, //Per no mostrar els fitxers ja pujats
-        'showUpload' => false, // hide upload button
-        'maxFileCount' => 10, // Client max files
-        'theme'=>'explorer-fas',
-        'preferIconicPreview' => true, // this will force thumbnails to display icons for following file extensions
-        'previewFileIconSettings' => [ // configure your icon file extensions
-            'doc' => '<i class="fas fa-file-word text-primary"></i>',
-            'xls' => '<i class="fas fa-file-excel text-success"></i>',
-            'ppt' => '<i class="fas fa-file-powerpoint text-danger"></i>',
-            'pdf' => '<i class="fas fa-file-pdf text-danger"></i>',
-            'zip' => '<i class="fas fa-file-archive text-muted"></i>',
-            'htm' => '<i class="fas fa-file-code text-info"></i>',
-            'txt' => '<i class="fas fa-file-text text-info"></i>',
-            'mov' => '<i class="fas fa-file-video text-warning"></i>',
-            'mp3' => '<i class="fas fa-file-audio text-warning"></i>',
-            // note for these file types below no extension determination logic
-            // has been configured (the keys itself will be used as extensions)
-            'jpg' => '<i class="fas fa-file-image text-danger"></i>',
-            'gif' => '<i class="fas fa-file-image text-muted"></i>',
-            'png' => '<i class="fas fa-file-image text-primary"></i>'
+<?php if ($editorMode) : ?>
+    <?= AttachmentsInput::widget([
+        'id' => 'file-input', // Optional
+        'model' => $model,
+        'options' => [ // Options of the Kartik's FileInput widget
+            'multiple' => true, // If you want to allow multiple upload, default to false
         ],
-    ]
-]) ?>
+        'pluginOptions' => [ // Plugin options of the Kartik's FileInput widget
+            'initialPreview' => false, //Per no mostrar els fitxers ja pujats
+            'showUpload' => false, // hide upload button
+            'fileActionSettings' => ['showUpload' => false],
+            'maxFileCount' => ArrayHelper::getValue($module->rules, 'maxFiles', 3), // Client max files
+            'maxFileSize' => ArrayHelper::getValue($module->rules, 'maxSize', 0), // File max file size
+            'theme'=>'explorer-fas',
+            'preferIconicPreview' => true, // this will force thumbnails to display icons for following file extensions
+            'previewFileIconSettings' => [ // configure your icon file extensions
+                'doc' => '<i class="fas fa-file-word text-primary"></i>',
+                'xls' => '<i class="fas fa-file-excel text-success"></i>',
+                'ppt' => '<i class="fas fa-file-powerpoint text-danger"></i>',
+                'pdf' => '<i class="fas fa-file-pdf text-danger"></i>',
+                'zip' => '<i class="fas fa-file-archive text-muted"></i>',
+                'htm' => '<i class="fas fa-file-code text-info"></i>',
+                'txt' => '<i class="fas fa-file-text text-info"></i>',
+                'mov' => '<i class="fas fa-file-video text-warning"></i>',
+                'mp3' => '<i class="fas fa-file-audio text-warning"></i>',
+                // note for these file types below no extension determination logic
+                // has been configured (the keys itself will be used as extensions)
+                'jpg' => '<i class="fas fa-file-image text-danger"></i>',
+                'gif' => '<i class="fas fa-file-image text-muted"></i>',
+                'png' => '<i class="fas fa-file-image text-primary"></i>'
+            ],
+        ]
+    ]) ?>
+<?php endif; ?>

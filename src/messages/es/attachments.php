@@ -9,4 +9,5 @@ return [
     'Search' => 'Buscar',
     'Download' => 'Descargar',
     'Delete' => 'Eliminar',
+    'PHP discarded POST data because of request exceeding post_max_size.' => 'La configuración de post_max_size no permite subir estos ficheros.'
 ];

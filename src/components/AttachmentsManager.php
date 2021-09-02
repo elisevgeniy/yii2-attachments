@@ -160,6 +160,7 @@ JS;
         $view->registerJs($js);
 
         return $view->render('@vendor/smateu/yii2-attachments/src/views/managerWidget', [
+            'module' => $this->module,
             'model' => $this->model,
             'editorMode' => $this->editorMode,
             'listView' => $this->listView,

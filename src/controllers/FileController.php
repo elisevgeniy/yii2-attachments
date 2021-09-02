@@ -35,6 +35,14 @@ class FileController extends Controller
             $model->file = $model->file[0];
         }
 
+        //check max-post_data
+        if(intval($_SERVER['CONTENT_LENGTH'])>0 && count($_POST)===0){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'error' => $this->getModule()->t('attachments', 'PHP discarded POST data because of request exceeding post_max_size.')
+            ];
+        }
+
         if ($model->file && $model->validate()) {
             $result['uploadedFiles'] = [];
             if (is_array($model->file)) {
