@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 /** @var yii\db\ActiveRecord $model */
 /** @var boolean $editorMode */
 /** @var boolean $listView */
+/** @var boolean $showListSelector */
 /** @var string $searchLabel */
 /** @var string $downloadLabel */
 /** @var string $deleteLabel */
@@ -51,6 +52,7 @@ use yii\helpers\ArrayHelper;
                                 </div>
                             </div>
                         </div>
+                        <?php if ($showListSelector) : ?>
                         <div class="btn-group btn-group-toggle view-toggle ml-50" data-toggle="buttons">
                             <label class="btn btn-outline-primary p-50 btn-sm <?=$listView? '' : 'active'?>">
                                 <input type="radio" name="view-btn-radio" data-view="grid" <?=$listView? '' : 'checked'?> />
@@ -61,6 +63,7 @@ use yii\helpers\ArrayHelper;
                                 <i data-feather="list"></i>
                             </label>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- search area ends here -->

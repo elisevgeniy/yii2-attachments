@@ -24,6 +24,7 @@ class AttachmentsManager extends Widget
 
     public $editorMode = true;
     public $listView = false;
+    public $showListSelector = true;
 
     public function init()
     {
@@ -164,6 +165,7 @@ JS;
             'model' => $this->model,
             'editorMode' => $this->editorMode,
             'listView' => $this->listView,
+            'showListSelector' => $this->showListSelector,
             'searchLabel' => $this->getModule()->t('attachments', 'Search'),
             'downloadLabel' => $this->getModule()->t('attachments', 'Download'),
             'deleteLabel' => $this->getModule()->t('attachments', 'Delete'),
