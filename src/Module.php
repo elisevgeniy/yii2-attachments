@@ -45,7 +45,7 @@ class Module extends \yii\base\Module
         \Yii::$app->i18n->translations['nemmo/*'] = [
             'class' => PhpMessageSource::className(),
             'sourceLanguage' => 'en',
-            'basePath' => '@vendor/smateu/yii2-attachments/src/messages',
+            'basePath' => '@vendor/elisevgeniy/yii2-attachments/src/messages',
             'fileMap' => [
                 'nemmo/attachments' => 'attachments.php'
             ],
