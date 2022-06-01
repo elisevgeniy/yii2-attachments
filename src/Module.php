@@ -29,6 +29,13 @@ class Module extends \yii\base\Module
         }
 
         $this->rules = ArrayHelper::merge(['maxFiles' => 3], $this->rules);
+
+        //Automaticaly set rule maxSize
+        if (!isset($this->rules['maxFileSize'])) {
+            $this->rules = ArrayHelper::merge(['maxSize' => $this->file_upload_max_size()], $this->rules);
+        }
+
+
         $this->defaultRoute = 'file';
         $this->registerTranslations();
     }
@@ -38,7 +45,7 @@ class Module extends \yii\base\Module
         \Yii::$app->i18n->translations['nemmo/*'] = [
             'class' => PhpMessageSource::className(),
             'sourceLanguage' => 'en',
-            'basePath' => '@vendor/nemmo/yii2-attachments/src/messages',
+            'basePath' => '@vendor/smateu/yii2-attachments/src/messages',
             'fileMap' => [
                 'nemmo/attachments' => 'attachments.php'
             ],
@@ -157,9 +164,43 @@ class Module extends \yii\base\Module
         $file = File::findOne(['id' => $id]);
         if (empty($file)) return false;
         $filePath = $this->getFilesDirPath($file->hash) . DIRECTORY_SEPARATOR . $file->hash . '.' . $file->type;
-        
+
         // this is the important part of the override.
-        // the original methods doesn't check for file_exists to be 
+        // the original methods doesn't check for file_exists to be
         return file_exists($filePath) ? unlink($filePath) && $file->delete() : $file->delete();
+    }
+
+    // Returns a file size limit in bytes based on the PHP upload_max_filesize
+    // and post_max_size
+    protected function file_upload_max_size() {
+        static $max_size = -1;
+
+        if ($max_size < 0) {
+        // Start with post_max_size.
+        $post_max_size = $this->parse_size(ini_get('post_max_size'));
+        if ($post_max_size > 0) {
+            $max_size = $post_max_size;
+        }
+
+        // If upload_max_size is less, then reduce. Except if upload_max_size is
+        // zero, which indicates no limit.
+        $upload_max = $this->parse_size(ini_get('upload_max_filesize'));
+        if ($upload_max > 0 && $upload_max < $max_size) {
+            $max_size = $upload_max;
+        }
+        }
+        return $max_size;
+    }
+
+    protected function parse_size($size) {
+        $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+        $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+        if ($unit) {
+        // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+        return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+        }
+        else {
+        return round($size);
+        }
     }
 }

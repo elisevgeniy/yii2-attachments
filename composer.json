@@ -22,6 +22,7 @@
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "~2.0.0",
+    "yiisoft/yii2-bootstrap4": "^2.0",
     "kartik-v/yii2-widget-fileinput": "@dev",
     "himiklab/yii2-colorbox-widget": "*"
   },
