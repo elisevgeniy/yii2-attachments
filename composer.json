@@ -1,5 +1,5 @@
 {
-  "name": "smateu/yii2-attachments",
+  "name": "elisevgeniy/yii2-attachments",
   "description": "Extension for file uploading and attaching to the models",
   "type": "yii2-extension",
   "keywords": [
