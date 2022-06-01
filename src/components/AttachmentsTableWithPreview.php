@@ -110,7 +110,7 @@ JS;
                     'visibleButtons' => ['delete' => $this->showDeleteButton],
                     'buttons' => [
                         'delete' => function ($url, $model, $key) {
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>',
+                            return Html::a('<i class="material-icons">delete</i>',
                                 '#',
                                 [
                                     'class' => 'delete-button',
