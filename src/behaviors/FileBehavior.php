@@ -95,7 +95,7 @@ class FileBehavior extends Behavior
             } else {
                 $initialPreview[] = Html::beginTag('div', ['class' => 'file-preview-other']) .
                     Html::beginTag('h2') .
-                    Html::tag('i', '', ['class' => 'glyphicon glyphicon-file']) .
+                    Html::tag('i', 'file_present', ['class' => 'material-icons']) .
                     Html::endTag('h2') .
                     Html::endTag('div');
             }
@@ -107,7 +107,7 @@ class FileBehavior extends Behavior
             } else {
                 $initialPreview[] = Html::beginTag('div', ['class' => 'file-preview-other']) .
                     Html::beginTag('h2') .
-                    Html::tag('i', '', ['class' => 'glyphicon glyphicon-file']) .
+                    Html::tag('i', 'file_present', ['class' => 'material-icons']) .
                     Html::endTag('h2') .
                     Html::endTag('div');
             }
