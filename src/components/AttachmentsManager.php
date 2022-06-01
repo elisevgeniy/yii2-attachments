@@ -160,7 +160,7 @@ class AttachmentsManager extends Widget
 JS;
         $view->registerJs($js);
 
-        return $view->render('@vendor/smateu/yii2-attachments/src/views/managerWidget', [
+        return $view->render('@vendor/elisevgeniy/yii2-attachments/src/views/managerWidget', [
             'module' => $this->module,
             'model' => $this->model,
             'editorMode' => $this->editorMode,
