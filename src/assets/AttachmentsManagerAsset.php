@@ -19,7 +19,7 @@ class AttachmentsManagerAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vendor/smateu/yii2-attachments/src/assets';
+    public $sourcePath = '@vendor/elisevgeniy/yii2-attachments/src/assets';
 
     /**
      * @inheritdoc
