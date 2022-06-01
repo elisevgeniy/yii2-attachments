@@ -74,7 +74,7 @@ use yii\helpers\ArrayHelper;
                         'itemOptions' => ['tag' => false],
                         'options' => ['class' => 'view-container' . ($listView? ' list-view' : '')],
                         'dataProvider' => new ArrayDataProvider(['allModels' => $model->getFiles()]),
-                        'itemView' => '@vendor/smateu/yii2-attachments/src/views/_attachment.php',
+                        'itemView' => '@vendor/elisevgeniy/yii2-attachments/src/views/_attachment.php',
                         'viewParams' => ['editorMode' => $editorMode]
                     ]); ?>
                 </div>
