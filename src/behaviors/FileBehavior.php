@@ -137,6 +137,9 @@ class FileBehavior extends Behavior
                 'url' => Url::toRoute(['/attachments/file/delete',
                     'id' => $file->id
                 ]),
+                'downloadUrl' => Url::toRoute(['/attachments/file/download',
+                    'id' => $file->id
+                ]),
             ];
         }
 
